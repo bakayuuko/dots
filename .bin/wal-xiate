@@ -1,0 +1,30 @@
+#!/bin/bash
+. "${HOME}/.cache/wal/colors.sh"
+
+cat << CONF > ~/dots/wal-xiate.h
+char *c_cursor = "$cursor";
+char *c_cursor_foreground = "NULL";
+char *c_bold = "$color15";
+char *c_foreground = "$foreground";
+char *c_background = "$background";
+char *c_palette[16] = {
+    /* Dark */
+    /* Black */   "$color0",
+    /* Red */     "$color1",
+    /* Green */   "$color2",
+    /* Yellow */  "$color3",
+    /* Blue */    "$color4",
+    /* Magenta */ "$color5",
+    /* Cyan */    "$color6",
+    /* White */   "$color7",
+
+    /* Bright */
+    /* Black */   "$color8",
+    /* Red */     "$color9",
+    /* Green */   "$color10",
+    /* Yellow */  "$color11",
+    /* Blue */    "$color12",
+    /* Magenta */ "$color13",
+    /* Cyan */    "$color14",
+    /* White */   "$color15",
+CONF

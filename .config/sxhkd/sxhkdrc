@@ -1,0 +1,153 @@
+# Launch terminal
+super + Return
+	urxvtc -geometry 77x20
+
+# Drawing terminal
+super + shift + Return
+	urdraw
+
+# Launch Rofi
+super + d
+	rofi -sidebar-mode -modi run,drun,window -lines 12 -padding 18 -width 60 -location 0 -show drun -columns 3
+
+# program launcher
+super + {e,w,r}
+	{pcmanfm,chromium,micro}
+	
+# Take a screenshot
+Print
+	~/.bin/scr
+	
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+	~/.bin/vol {up,down,mute}
+
+# brightness
+super + XF86AudioLowerVolume
+	xbacklight -dec 10 && notify-send -r 106 " Brightness level: $(xbacklight -get | sed -e 's/\..*//g')"
+
+super + XF86AudioRaiseVolume
+	xbacklight -inc 10 && notify-send -r 106 " Brightness level:$(xbacklight -get | sed -e 's/\..*//g')"
+
+XF86MonBrightnessUp
+	xbacklight -inc 10 && notify-send -r 106 " Brightness level: $(xbacklight -get | sed -e 's/\..*//g')"
+
+XF86MonBrightnessDown
+	xbacklight -dec 10 && notify-send -r 106 " Brightness level:$(xbacklight -get | sed -e 's/\..*//g')"
+
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+
+# Show now-playing
+super + m
+	notify-send "Now Playing ♫" "$(mpc current)"
+
+# Make sxhkd reload its configuration files
+super + s
+	pkill -USR1 -x sxhkd; \
+	notify-send "SXHKD RELOADED"
+
+super + F1
+	wal -s -t -i "$HOME/Pictures/anime" -o ~/.bin/wal-set && ~/.bin/walcycle.sh
+
+super + shift + F1
+	wal -s -t -l -i "$HOME/Pictures/anime" -o ~/.bin/wal-set-light && ~/.bin/walcycle.sh
+
+# Toggle Touchpad
+super + F2
+	~/.bin/toggle-touchpad.sh
+
+# Toggle Automatic Screens
+super + F3
+	~/.bin/caffeine.sh
+
+# Reload theme
+super + F5
+    ~/.bin/wal-set && ~/.bin/walcycle.sh
+
+# CapLock Notification
+@Caps_Lock
+	~/.bin/caplock.sh
+
+# toogle polybar
+alt + p
+	killall -s 9 polybar && sleep 0 && bspc config top_padding 0 && bspc config bottom_padding 0 && notify-send "☁ HIDE BAR"
+
+alt + shift + p
+	sh ~/.config/polybar/launch.sh
+
+# Quit bspwm normally
+super + control + Escape
+	bspc quit
+
+# Reload bspwm config
+super + shift + BackSpace
+	bspwmrc
+
+# close and kill
+super + q
+	bspc node -c
+
+super + shift + q
+	bspc node -k
+
+# Close app (common way)
+alt + F4
+	bspc node -c
+
+# Fullscreen / Monocle
+super + f
+	bspc node -t {fullscreen,tiled}
+	bspc desktop -l next
+	
+# Toggle beetwen floating & tiled
+super + space
+    bspc node -t "~"{floating,tiled}
+
+# Pseudo Tiled & tiled mode
+super + {p,t}
+    bspc node -t {pseudo_tiled,tiled}
+
+# Send the window to another edge of the screen
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# Change focus to next window, including floating window
+alt + {_,shift + }Tab
+	bspc node -f {next.local,prev.local}
+
+# Switch workspace (key "[" "]" )
+super + bracket{left,right}
+	bspc desktop -f {prev.local,next.local}
+
+# Preselect the direction
+ctrl + alt + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# Cancel the preselection for the focused node
+super + Escape
+	bspc node -p cancel
+
+# Switch to last opened workspace
+super + {Tab,grave}
+	bspc {node,desktop} -f last
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# Expanding windows
+super + control + {Left,Right,Up,Down}
+	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+	
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+	
+# Move floating windows
+alt + shift + {Left,Down,Up,Right}
+	bspc node -v {-15 0,0 15,0 -15,15 0}
+
+super + ctrl + {h,l,j,k}
+        bspc node @focused:/ --rotate {270,90,180,180}

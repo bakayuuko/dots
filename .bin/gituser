@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "mail:"
+read mail
+git config user.name "bakayuuko"
+git config user.email "$mail"

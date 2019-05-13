@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --bg-scale '/home/non/Pictures/background/wallhaven-96653.jpg' 

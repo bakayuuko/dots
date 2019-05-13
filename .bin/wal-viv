@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+> ~/dots/.vivaldi/cutom.css
+cp $HOME/.cache/wal/colors.css $HOME/dots/.vivaldi/custom.css
+cat $HOME/dots/.vivaldi/raw.css >> $HOME/dots/.vivaldi/custom.css

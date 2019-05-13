@@ -1,0 +1,51 @@
+#!/bin/sh
+
+export PATH="$PATH:$HOME/.scripts/:$HOME/bin/:$HOME/.bin/"
+
+# colorscheme
+xrdb -merge "$HOME/.Xresources" &
+
+# urxvt daemon
+urxvtd -q -f -o &
+
+# screen temperature adjustment
+redshift -l "10.0167:105.0833" &
+
+# wallpaper
+sh ~/.fehbg &
+
+# run skippy-xd
+skippy-xd --start-daemon &
+
+# mpd
+pkill mpd
+mpd &
+
+#dunst
+dunst &
+
+# enable tapping - synaptics touchpad
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1 &
+
+# compton
+compton --config ~/.config/compton/compton.conf -b &
+
+# start polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# cursor on root is left arrow
+xsetroot -cursor_name left_ptr &
+
+# enable local fonts in .fonts directory
+xset +fp /usr/share/fonts/local &
+xset +fp /usr/share/fonts/misc &
+xset +fp ~/.fonts &
+xset fp rehash &
+fc-cache -fv &
+
+# tint2
+tint2 -c ~/.config/tint2/minima/minima.tint2rc &
+
+# wal
+#wal -l -i "$(< "${HOME}/.cache/wal/wal")" && wal-set-light
+wal -i "$(< "${HOME}/.cache/wal/wal")" && wal-set

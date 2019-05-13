@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo "make nanolab use local time"
+sudo timedatectl set-local-rtc 1 --adjust-system-clock &
+echo "disable automatic time update"
+sudo timedatectl set-ntp 0
+
+echo "update time"
+now=$(date -d "+7 hour" +%Y-%m-%d" "%H:%M:%S)
+echo "time change to $now"
+sudo timedatectl set-time "$now"

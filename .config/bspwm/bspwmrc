@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# autorun
+sh ~/.config/bspwm/autorun
+
+# sxhkd
+pkill sxhkd
+sxhkd &
+
+#gereral configs
+bspc config border_width            1
+bspc config border_radius           6
+bspc config window_gap              10
+
+bspc config top_padding             0
+bspc config bottom_padding          0
+bspc config left_padding            1
+bspc config right_padding           1
+
+bspc config split_ratio             0.5
+bspc config normal_frame_opacity    0.5
+bspc config focused_frame_opacity   0.1
+bspc config borderless_monocle      true
+bspc config gapless_monocle         true
+bspc config focus_follows_pointer   true
+bspc config pointer_modifier        mod4
+bspc config pointer_action1         move
+bspc config pointer_action2         resize_side
+bspc config pointer_action3         resize_corner
+
+# desktop names
+bspc monitor -d '1' '2' '3' '4' '5'
+
+#filemanager
+bspc rule -a Pcmanfm:* desktop='^1' focus=on
+
+#internet
+bspc rule -a Nightly:* desktop='^2' focus=on state=tiled
+bspc rule -a Firefox:* desktop='^2' focus=on state=tiled
+bspc rule -a Waterfox:* desktop='^2' focus=on state=floating
+
+#multimedia
+bspc rule -a mpv:* desktop='^3' state=tiled focus=on center=true
+bspc rule -a Gimp-2.8:* desktop='^3' focus=on state=floating
+bspc rule -a krita:* desktop='^3' focus=on state=floating
+
+#editor
+bspc rule -a Subl3:* desktop='^4' focus=on state=floating
+
+# autorun
+#sh ~/.config/bspwm/autorun
+
+# border
+sh ~/.bin/walcycle.sh
+
+# panel
+#sh ~/.config/polybar/launch.sh

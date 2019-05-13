@@ -1,0 +1,88 @@
+# windowchef 
+
+# reload config
+super + shift + r
+	$HOME/.config/windowchef/windowchefrc; \
+	pkill -USR1 -x sxhkd; \
+	pkill -USR1 -x ruler; \
+	pkill -USR1 -x redshift && notify-send -u low "Configuration reloaded"
+
+# manage window
+super + {Left,Down,Up,Right}
+	waitron window_move {-30 0, 0 30, 0 -30, 30 0}
+
+super + shift + {Left,Down,Up,Right}
+	waitron window_resize {-20 0, 0 20, 0 -20, 20 0}
+
+alt + {h,j,k,l}
+	waitron window_cardinal_focus {left,down,up,right}
+
+super + {h,k,j,l,g}
+     waitron window_snap {topleft,topright,bottomleft,bottomright,middle}
+
+super + b
+    waitron window_hor_maximize
+
+super + v
+    waitron window_ver_maximize
+
+super + m
+    waitron window_monocle
+
+super + {_, shift +} {1-4}
+     waitron {group_toggle,group_add_window} {1-4}
+
+ctrl + alt + q
+	waitron wm_quit 0
+
+super + q
+	waitron window_close
+
+# cycle
+alt + Tab
+	waitron window_cycle
+
+alt + shift + Tab
+	waitron window_rev_cycle
+
+# apps
+super + Return
+	urxvtc
+
+super + {e,w,r}
+	{pcmanfm,vivaldi-snapshot,micro}
+
+super + d
+	rofi -sidebar-mode -modi run,drun,window -lines 12 -padding 18 -width 60 -location 0 -show drun -columns 3
+
+Print
+	~/.bin/scr
+
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+	~/.bin/vol {up,down,mute}
+
+XF86MonBrightness{Up,Down}
+	xbacklight -{inc,dec} 5
+
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+
+# Toggle Touchpad
+super + F2
+	~/.bin/toggle-touchpad.sh
+
+# Toggle Automatic Screens
+super + F3
+	~/.bin/caffeine.sh
+
+# Reload theme
+super + F5
+    ~/.bin/wal-set && ~/.bin/walcycle.sh
+
+# CapLock Notification
+@Caps_Lock
+	~/.bin/caplock.sh
+
+# wal
+super + F1
+	wal -i "$HOME/Pictures/anime"
